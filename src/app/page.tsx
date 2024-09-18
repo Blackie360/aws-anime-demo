@@ -4,22 +4,25 @@ import { onDeletePost } from "./_actions/actions";
 
 export default async function Home() {
   const isSignedIn = await isAuthenticated();
+
+  // Fetch posts with comments
   const { data: posts } = await cookieBasedClient.models.Post.list({
-    selectionSet: ["title", "id"],
+    selectionSet: ["title", "id", "comments.id", "comments.content"],
     authMode: isSignedIn ? "userPool" : "identityPool",
   });
+
   console.log("posts", posts);
 
   return (
-    <main className="flex flex-col items-center justify-between p-24 w-1/2 m-auto gap-4">
-      <h1 className="text-2xl pb-10">
-        List Of All Titles{!isSignedIn ? " (From All Users)" : ""}
+    <main className="flex flex-col items-center justify-between p-24 w-full max-w-4xl mx-auto gap-4">
+      <h1 className="text-2xl font-bold text-gray-900 pb-10">
+        List Of All Animes{!isSignedIn ? " (From All Users)" : ""}
       </h1>
-      {posts?.map(async (post, idx) => (
+      {posts?.map((post, idx) => (
         <Post
           onDelete={onDeletePost}
           post={post}
-          key={idx}
+          key={post.id}  
           isSignedIn={isSignedIn}
         />
       ))}

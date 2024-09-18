@@ -8,7 +8,7 @@ const Post = ({
   onDelete,
   isSignedIn,
 }: {
-  post: Pick<Schema["Post"]["type"], "title" | "id">;
+  post: Pick<Schema["Post"]["type"], "title" | "id" | "comments">;
   onDelete: (id: string) => void;
   isSignedIn: boolean;
 }) => {
@@ -18,24 +18,31 @@ const Post = ({
   };
 
   return (
-    <div className="border border-gray-200 bg-white shadow-md hover:shadow-lg transition-shadow duration-300 w-full p-4 rounded-lg flex justify-between items-center gap-4">
-      <button 
-        onClick={onDetail} 
-        className="flex items-center gap-2 text-left w-full"
-        aria-label={`View details for ${post.title}`}
-      >
-        <div className="font-semibold text-gray-800">Title:</div>
+    <div className="border bg-white shadow-md hover:shadow-lg transition-shadow duration-200 w-full p-4 rounded-lg flex flex-col">
+      <button onClick={onDetail} className="flex gap-2 items-center mb-4">
+        <div className="font-semibold text-gray-700">Title:</div>
         <div className="text-gray-900 font-medium truncate">{post.title}</div>
       </button>
-      {isSignedIn ? (
+      {post.comments && post.comments.length > 0 ? (
+        <div className="border-t pt-2 mt-2 text-gray-700">
+          <h3 className="text-lg font-semibold">Comments:</h3>
+          <ul className="list-disc pl-5">
+            {post.comments.map((comment) => (
+              <li key={comment.id} className="mb-2">{comment.content}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="text-gray-500 mt-2">No comments yet.</p>
+      )}
+      {isSignedIn && (
         <button
-          className="text-red-600 hover:text-red-800 transition-colors duration-300 p-2 rounded-full hover:bg-red-50"
+          className="text-red-600 hover:text-red-800 transition-colors duration-200 font-bold mt-4"
           onClick={() => onDelete(post.id)}
-          aria-label={`Delete post ${post.title}`}
         >
-          <span className="text-xl">&times;</span>
+          &times;
         </button>
-      ) : null}
+      )}
     </div>
   );
 };
