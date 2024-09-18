@@ -1,3 +1,4 @@
+
 import Post from "@/components/Post";
 import { cookieBasedClient, isAuthenticated } from "@/utils/amplify-utils";
 import { onDeletePost } from "./_actions/actions";
