@@ -13,8 +13,13 @@ const Post = ({
   isSignedIn: boolean;
 }) => {
   const router = useRouter();
+  
   const onDetail = () => {
     router.push(`posts/${post.id}`);
+  };
+
+  const onAddComment = () => {
+    router.push(`/posts/${post.id}/`);
   };
 
   return (
@@ -23,6 +28,7 @@ const Post = ({
         <div className="font-semibold text-gray-700">Title:</div>
         <div className="text-gray-900 font-medium truncate">{post.title}</div>
       </button>
+      
       {post.comments && post.comments.length > 0 ? (
         <div className="border-t pt-2 mt-2 text-gray-700">
           <h3 className="text-lg font-semibold">Comments:</h3>
@@ -35,13 +41,22 @@ const Post = ({
       ) : (
         <p className="text-gray-500 mt-2">No comments yet.</p>
       )}
+
       {isSignedIn && (
-        <button
-          className="text-red-600 hover:text-red-800 transition-colors duration-200 font-bold mt-4"
-          onClick={() => onDelete(post.id)}
-        >
-          &times;
-        </button>
+        <div className="flex gap-4 mt-4">
+          <button
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
+            onClick={onAddComment}
+          >
+            Add Comment
+          </button>
+          <button
+            className="text-red-600 hover:text-red-800 transition-colors duration-200 font-bold"
+            onClick={() => onDelete(post.id)}
+          >
+            &times;
+          </button>
+        </div>
       )}
     </div>
   );

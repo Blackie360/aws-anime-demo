@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <main className="flex flex-col items-center justify-between p-24 w-full max-w-4xl mx-auto gap-4">
       <h1 className="text-2xl font-bold text-gray-900 pb-10">
-        List Of All Animes{!isSignedIn ? " (From All Users)" : ""}
+        List Of All Animes{!isSignedIn ? " (" : ""}
       </h1>
       {posts?.map((post, idx) => (
         <Post
