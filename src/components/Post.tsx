@@ -18,18 +18,22 @@ const Post = ({
   };
 
   return (
-    <div className="border bg-white shadow-md hover:shadow-lg transition-shadow duration-200 w-full p-4 rounded-lg flex justify-between items-center">
-      <button onClick={onDetail} className="flex gap-2 items-center text-left">
-        <div className="font-semibold text-gray-700">Title:</div>
+    <div className="border border-gray-200 bg-white shadow-md hover:shadow-lg transition-shadow duration-300 w-full p-4 rounded-lg flex justify-between items-center gap-4">
+      <button 
+        onClick={onDetail} 
+        className="flex items-center gap-2 text-left w-full"
+        aria-label={`View details for ${post.title}`}
+      >
+        <div className="font-semibold text-gray-800">Title:</div>
         <div className="text-gray-900 font-medium truncate">{post.title}</div>
       </button>
-      <input type="hidden" name="id" id="id" value={post.id} />
       {isSignedIn ? (
         <button
-          className="text-red-600 hover:text-red-800 transition-colors duration-200 font-bold"
+          className="text-red-600 hover:text-red-800 transition-colors duration-300 p-2 rounded-full hover:bg-red-50"
           onClick={() => onDelete(post.id)}
+          aria-label={`Delete post ${post.title}`}
         >
-          &times;
+          <span className="text-xl">&times;</span>
         </button>
       ) : null}
     </div>
