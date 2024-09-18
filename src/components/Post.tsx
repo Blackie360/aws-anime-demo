@@ -23,7 +23,7 @@ const Post = ({
   };
 
   return (
-    <div className="border bg-white shadow-md hover:shadow-lg transition-shadow duration-200 w-full p-4 rounded-lg flex flex-col">
+    <div className="border bg-white shadow-red-400 shadow-md hover:shadow-lg transition-shadow duration-200 w-full p-4 rounded-lg flex flex-col">
       <button onClick={onDetail} className="flex gap-2 items-center mb-4">
         <div className="font-semibold text-gray-700">Title:</div>
         <div className="text-gray-900 font-medium truncate">{post.title}</div>
@@ -45,7 +45,7 @@ const Post = ({
       {isSignedIn && (
         <div className="flex gap-4 mt-4">
           <button
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
             onClick={onAddComment}
           >
             Add Comment
