@@ -11,8 +11,8 @@ import { useTransition } from "react";
 export default function NavBar({ isSignedIn }: { isSignedIn: boolean }) {
   const [authCheck, setAuthCheck] = useState(isSignedIn);
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
 
+  const router = useRouter();
   useEffect(() => {
     const hubListenerCancel = Hub.listen("auth", (data) => {
       switch (data.payload.event) {
@@ -23,6 +23,7 @@ export default function NavBar({ isSignedIn }: { isSignedIn: boolean }) {
           break;
         case "signedOut":
           setAuthCheck(false);
+
           startTransition(() => router.push("/"));
           startTransition(() => router.refresh());
           break;
@@ -39,7 +40,6 @@ export default function NavBar({ isSignedIn }: { isSignedIn: boolean }) {
       router.push("/signin");
     }
   };
-
   const defaultRoutes = [
     {
       href: "/",
@@ -62,40 +62,25 @@ export default function NavBar({ isSignedIn }: { isSignedIn: boolean }) {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        padding="1rem 2rem"
-        backgroundColor="#1a202c"
-        color="white"
-        boxShadow="0 2px 10px rgba(0, 0, 0, 0.1)"
+        padding={"1rem"}
       >
-        {/* Logo or Brand */}
-        <div className="text-xl font-bold">
-          <Link href="/">AnimeList</Link>
-        </div>
-
-        {/* Navigation Links */}
-        <Flex as="nav" alignItems="center" gap="2rem">
+        <Flex as="nav" alignItems="center" gap="3rem" margin="0 2rem">
           {routes.map((route) => (
             <Link key={route.href} href={route.href}>
-              <span className="hover:text-gray-300 transition duration-300">
-                {route.label}
-              </span>
+              {route.label}
             </Link>
           ))}
         </Flex>
-
-        {/* Sign In/Out Button */}
         <Button
           variation="primary"
-          borderRadius="50px"
-          padding="0.5rem 2rem"
-          backgroundColor="#f56565"
-          _
+          borderRadius="2rem"
+          className="mr-4"
           onClick={signOutSignIn}
         >
           {authCheck ? "Sign Out" : "Sign In"}
         </Button>
       </Flex>
-      <Divider size="small" />
+      <Divider size="small"></Divider>
     </>
   );
 }
